@@ -23,7 +23,7 @@ function App() {
 
   const searchHandler = async () => {
     if (!zip) {
-      setError('please add zip');
+      setError('please add zip!');
     } else {
       const data = await fetchBusinesses(zip, search);
       return setBusinesses(data);
@@ -37,14 +37,16 @@ function App() {
       <div className="query-form">
         <div className="form-control">
           <label>Zip:</label>
-          <p>{error}</p>
+
           <input type="text" placeholder="zip" onChange={(e) => setZip(e.target.value)} />
         </div>
         <div className="form-control">
           <label>Query:</label>
           <input type="text" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
         </div>
+
         <button onClick={searchHandler}>Search</button>
+        <p>{error}</p>
       </div>
       {loading && <div className="loader"></div>}
       {!loading && businesses.map((b) => <RestaurantListItem key={b.id} {...b} />)}
