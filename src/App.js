@@ -9,6 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [zip, setZip] = useState('97013');
   const [search, setSearch] = useState('');
+  const [error, setError] = useState('');
   // TODO -- add state for zip / search and add event listeners to the inputs
 
   useEffect(() => {
@@ -21,9 +22,12 @@ function App() {
   }, []);
 
   const searchHandler = async () => {
-    const data = await fetchBusinesses(zip, search);
-
-    return setBusinesses(data);
+    if (!zip) {
+      setError('please add zip');
+    } else {
+      const data = await fetchBusinesses(zip, search);
+      return setBusinesses(data);
+    }
   };
   // TODO -- add event for button click to handle calling fetchBusinesses with zip / search
 
@@ -33,6 +37,7 @@ function App() {
       <div className="query-form">
         <div className="form-control">
           <label>Zip:</label>
+          <p>{error}</p>
           <input type="text" placeholder="zip" onChange={(e) => setZip(e.target.value)} />
         </div>
         <div className="form-control">
