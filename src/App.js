@@ -26,6 +26,7 @@ function App() {
       setError('please add zip!');
     } else {
       const data = await fetchBusinesses(zip, search);
+      setError('');
       return setBusinesses(data);
     }
   };
